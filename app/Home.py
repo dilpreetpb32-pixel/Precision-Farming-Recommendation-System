@@ -8,7 +8,8 @@ import plotly.graph_objects as go
 st.set_page_config(
     page_title="AI-Based Precision Farming",
     page_icon="🌱",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
 # --------------------------------------------------
@@ -17,10 +18,6 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-
-#MainMenu {visibility:hidden;}
-footer {visibility:hidden;}
-header {visibility:hidden;}
 
 .block-container{
     padding-top:2rem;
