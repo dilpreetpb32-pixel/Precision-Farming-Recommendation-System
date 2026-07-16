@@ -82,28 +82,29 @@ header {visibility:hidden;}
 # Sidebar
 # --------------------------------------------------
 
-st.subheader("🧭 Navigate Through the Dashboard")
+st.sidebar.title("🌾 Navigation")
 
-col1, col2 = st.columns(2)
+st.sidebar.success("🏠 Home")
 
-with col1:
-    st.success("🌾 Crop Recommendation")
+st.sidebar.info("🌾 Crop Recommendation")
 
-with col2:
-    st.success("🌱 Fertilizer Recommendation")
+st.sidebar.info("🌱 Fertilizer Recommendation")
 
 st.sidebar.markdown("---")
 
-st.subheader("⭐ Project Highlights")
+st.sidebar.subheader("📌 Project Highlights")
 
-st.markdown("""
-- 🌾 AI-Based Crop Recommendation
-- 🌱 Intelligent Fertilizer Recommendation
-- 🤖 Random Forest Machine Learning Models
-- 📈 Prediction Confidence Scores
-- 📊 Top 5 Recommendation Ranking
-- ⚡ Interactive Streamlit Dashboard
+st.sidebar.markdown("""
+- 🤖 Random Forest Models
+- 🌾 Crop Recommendation
+- 🌱 Fertilizer Recommendation
+- 📈 Prediction Confidence
+- 📊 Top 5 Recommendations
 """)
+
+st.sidebar.markdown("---")
+
+st.sidebar.caption("AI-Based Precision Farming Recommendation System")
 
 # --------------------------------------------------
 # Hero Section
@@ -113,7 +114,7 @@ st.markdown("""
 <div class="hero">
 <h1>🌱 AI-Based Precision Farming Recommendation System</h1>
 <p>
-Empowering Smart Agriculture using Machine Learning and Explainable AI
+Empowering Smart Agriculture using Machine Learning for Intelligent Crop and Fertilizer Recommendations
 </p>
 </div>
 """, unsafe_allow_html=True)
@@ -200,12 +201,12 @@ st.divider()
 
 st.header("🌾 System Workflow")
 
-w1, w2, w3, w4, w5 = st.columns(5)
+w1, w2, w3, w4 = st.columns(4)
 
 w1.success("1️⃣\n\nEnter\nParameters")
-w2.info("2️⃣\n\nCrop\nPrediction")
-w3.warning("3️⃣\n\nFertilizer\nPrediction")
-w4.info("4️⃣\n\nDecision\nSupport")
+w2.info("2️⃣\n\nCrop\nRecommendation")
+w3.warning("3️⃣\n\nFertilizer\nRecommendation")
+w4.success("4️⃣\n\nView\nResults")
 
 st.divider()
 
@@ -234,6 +235,6 @@ st.divider()
 st.markdown("""
 <div class="footer">
 <b>Developed by Dilpreet Kaur</b><br>
-AI-Based Precision Farming Recommendation System
+B.Sc. IT Major Project • AI-Based Precision Farming Recommendation Engine
 </div>
 """, unsafe_allow_html=True)
