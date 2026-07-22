@@ -1,6 +1,14 @@
 import streamlit as st
 import plotly.graph_objects as go
 
+from style import (
+    COLORS,
+    inject_base_css,
+    render_sidebar,
+    render_hero,
+    render_footer,
+)
+
 # --------------------------------------------------
 # Page Configuration
 # --------------------------------------------------
@@ -9,185 +17,158 @@ st.set_page_config(
     page_title="AI-Based Precision Farming",
     page_icon="🌱",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
 )
 
-# --------------------------------------------------
-# Custom CSS
-# --------------------------------------------------
-
-st.markdown("""
-<style>
-
-.block-container{
-    padding-top:2rem;
-    padding-bottom:2rem;
-}
-
-.hero{
-    background:linear-gradient(135deg,#2E7D32,#43A047);
-    padding:55px;
-    border-radius:20px;
-    color:white;
-    text-align:center;
-    margin-bottom:30px;
-}
-
-.hero h1{
-    font-size:46px;
-    font-weight:bold;
-}
-
-.hero p{
-    font-size:20px;
-}
-
-.feature{
-    background:white;
-    border-radius:15px;
-    padding:25px;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
-    text-align:center;
-    transition:.3s;
-    border-top:5px solid #2E7D32;
-}
-
-.feature:hover{
-    transform:translateY(-5px);
-}
-
-.badge{
-    display:inline-block;
-    background:#E8F5E9;
-    color:#2E7D32;
-    padding:8px 16px;
-    border-radius:20px;
-    margin:5px;
-    font-weight:bold;
-}
-
-.footer{
-    text-align:center;
-    color:gray;
-    padding:20px;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-# --------------------------------------------------
-# Sidebar
-# --------------------------------------------------
-
-st.sidebar.title("🌾 Navigation")
-
-st.sidebar.success("🏠 Home")
-
-st.sidebar.info("🌾 Crop Recommendation")
-
-st.sidebar.info("🌱 Fertilizer Recommendation")
-
-st.sidebar.markdown("---")
-
-st.sidebar.subheader("📌 Project Highlights")
-
-st.sidebar.markdown("""
-- 🤖 Random Forest Models
-- 🌾 Crop Recommendation
-- 🌱 Fertilizer Recommendation
-- 📈 Prediction Confidence
-- 📊 Top 5 Recommendations
-""")
-
-st.sidebar.markdown("---")
-
-st.sidebar.caption("AI-Based Precision Farming Recommendation System")
+inject_base_css()
+render_sidebar(active="home")
 
 # --------------------------------------------------
 # Hero Section
 # --------------------------------------------------
 
-st.markdown("""
-<div class="hero">
-<h1>🌱 AI-Based Precision Farming Recommendation System</h1>
-<p>
-Empowering Smart Agriculture using Machine Learning for Intelligent Crop and Fertilizer Recommendations
-</p>
-</div>
-""", unsafe_allow_html=True)
+render_hero(
+    eyebrow="AI-Based Precision Farming",
+    title="🌱 Precision Farming Recommendation Engine",
+    subtitle=(
+        "Empowering smarter agriculture with machine learning — instant, "
+        "data-driven crop and fertilizer recommendations built on real "
+        "soil and environmental data."
+    ),
+)
 
 # --------------------------------------------------
-# Metrics
+# Key Metrics
 # --------------------------------------------------
 
-m1, m2, m3= st.columns(3)
+m1, m2, m3, m4 = st.columns(4)
 
-m1.metric("🌾 Crop Accuracy", "99.55%")
-m2.metric("🌱 Fertilizer Accuracy", "87.50%")
-m3.metric("🤖 Models", "5")
+metric_cards = [
+    ("99.55%", "Crop Model Accuracy"),
+    ("87.50%", "Fertilizer Model Accuracy"),
+    ("5", "ML Algorithms Compared"),
+    ("12,200+", "Records Analyzed"),
+]
 
+for col, (value, label) in zip([m1, m2, m3, m4], metric_cards):
+    with col:
+        st.markdown(
+            f"""
+            <div class="pf-metric">
+                <div class="pf-metric-value">{value}</div>
+                <div class="pf-metric-label">{label}</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+st.write("")
 st.divider()
 
 # --------------------------------------------------
-# Features
+# What This System Can Do
 # --------------------------------------------------
 
-st.subheader("🚀 What This System Can Do")
+st.markdown('<div class="pf-section-title">🚀 What This System Can Do</div>', unsafe_allow_html=True)
+st.markdown(
+    '<div class="pf-section-sub">Two Random Forest models, trained on real agricultural data, working together end-to-end</div>',
+    unsafe_allow_html=True,
+)
 
-col1, col2 = st.columns(2)
+c1, c2 = st.columns(2)
 
-with col1:
-    st.info("""
-### 🌾 Crop Recommendation
+with c1:
+    st.markdown(
+        f"""
+        <div class="pf-card pf-card-accent">
+            <div style="font-size:26px;">🌾</div>
+            <div style="font-family:'Poppins',sans-serif; font-weight:600; font-size:16px; margin:10px 0 6px 0;">Crop Recommendation</div>
+            <div style="color:{COLORS['muted']}; font-size:13.5px; line-height:1.55;">
+                Recommends the most suitable crop from 22 possible types based on soil nutrients
+                (N, P, K), temperature, humidity, pH and rainfall.
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.write("")
+    st.markdown(
+        f"""
+        <div class="pf-card pf-card-accent">
+            <div style="font-size:26px;">📈</div>
+            <div style="font-family:'Poppins',sans-serif; font-weight:600; font-size:16px; margin:10px 0 6px 0;">Prediction Confidence</div>
+            <div style="color:{COLORS['muted']}; font-size:13.5px; line-height:1.55;">
+                Every recommendation comes with a confidence gauge and a ranked Top-5 view,
+                so you see how sure the model is — not just its single best guess.
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-Recommend the most suitable crop based on soil nutrients and environmental conditions.
-""")
+with c2:
+    st.markdown(
+        f"""
+        <div class="pf-card pf-card-accent">
+            <div style="font-size:26px;">🌱</div>
+            <div style="font-family:'Poppins',sans-serif; font-weight:600; font-size:16px; margin:10px 0 6px 0;">Fertilizer Recommendation</div>
+            <div style="color:{COLORS['muted']}; font-size:13.5px; line-height:1.55;">
+                Suggests the optimal fertilizer from 7 classes using soil, crop, seasonal,
+                irrigation and regional agricultural factors.
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.write("")
+    st.markdown(
+        f"""
+        <div class="pf-card pf-card-accent">
+            <div style="font-size:26px;">⚡</div>
+            <div style="font-family:'Poppins',sans-serif; font-weight:600; font-size:16px; margin:10px 0 6px 0;">Instant Prediction</div>
+            <div style="color:{COLORS['muted']}; font-size:13.5px; line-height:1.55;">
+                Trained Random Forest models generate intelligent recommendations
+                in a fraction of a second — no lab test required to get started.
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-    st.info("""
-### 🌱 Fertilizer Recommendation
-
-Suggest the optimal fertilizer for healthy crop growth.
-""")
-
-with col2:
-    st.info("""
-### 📈 Prediction Confidence
-
-View prediction confidence scores and the Top 5 recommendations generated by the machine learning models.
-""")
-
-    st.info("""
-### ⚡ Instant Prediction
-
-Generate intelligent recommendations within seconds using trained Random Forest models.
-""")
+st.write("")
+st.divider()
 
 # --------------------------------------------------
 # Model Performance
 # --------------------------------------------------
 
-st.header("📈 Final Model Performance")
+st.markdown('<div class="pf-section-title">📊 Final Model Performance</div>', unsafe_allow_html=True)
+st.markdown(
+    '<div class="pf-section-sub">Random Forest was selected for both tasks after comparing 5 algorithms on accuracy, precision, recall and F1-score</div>',
+    unsafe_allow_html=True,
+)
 
 fig = go.Figure()
-
 fig.add_trace(
     go.Bar(
         x=["Crop Model", "Fertilizer Model"],
         y=[99.55, 87.50],
         text=["99.55%", "87.50%"],
         textposition="outside",
-        marker_color=["#2E7D32", "#66BB6A"]
+        marker_color=[COLORS["forest"], COLORS["moss"]],
+        width=[0.42, 0.42],
     )
 )
-
 fig.update_layout(
     template="plotly_white",
-    height=450,
-    yaxis=dict(range=[0, 105]),
-    xaxis_title="Random Forest Models",
-    yaxis_title="Accuracy (%)"
+    height=380,
+    yaxis=dict(range=[0, 110], title="Accuracy (%)", gridcolor="#EDF1E8"),
+    xaxis_title="Deployed Random Forest Models",
+    plot_bgcolor="rgba(0,0,0,0)",
+    paper_bgcolor="rgba(0,0,0,0)",
+    font={"family": "Inter, sans-serif", "color": COLORS["text"]},
+    margin=dict(t=20, b=10),
 )
-
 st.plotly_chart(fig, use_container_width=True)
 
 st.divider()
@@ -196,42 +177,58 @@ st.divider()
 # Workflow
 # --------------------------------------------------
 
-st.header("🌾 System Workflow")
+st.markdown('<div class="pf-section-title">🌾 How It Works</div>', unsafe_allow_html=True)
+st.write("")
 
-w1, w2, w3, w4 = st.columns(4)
+steps = [
+    ("1", "Enter Parameters", "Provide soil & environmental readings"),
+    ("2", "Choose a Module", "Crop or fertilizer recommendation"),
+    ("3", "Model Predicts", "Random Forest scores every class"),
+    ("4", "View Results", "Confidence gauge + Top-5 ranking"),
+]
+cols = st.columns(4)
+for col, (num, title, desc) in zip(cols, steps):
+    with col:
+        st.markdown(
+            f"""
+            <div class="pf-card" style="text-align:center;">
+                <div style="width:38px;height:38px;border-radius:50%;background:{COLORS['forest']};
+                            color:white;font-family:'Poppins',sans-serif;font-weight:700;
+                            display:flex;align-items:center;justify-content:center;margin:0 auto 12px auto;">
+                    {num}
+                </div>
+                <div style="font-weight:600; font-size:14px; margin-bottom:4px;">{title}</div>
+                <div style="color:{COLORS['muted']}; font-size:12px;">{desc}</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
-w1.success("1️⃣\n\nEnter\nParameters")
-w2.info("2️⃣\n\nCrop\nRecommendation")
-w3.warning("3️⃣\n\nFertilizer\nRecommendation")
-w4.success("4️⃣\n\nView\nResults")
-
+st.write("")
 st.divider()
 
 # --------------------------------------------------
 # Technologies
 # --------------------------------------------------
 
-st.subheader("🛠️ Technologies Used")
+st.markdown('<div class="pf-section-title">🛠️ Technologies Used</div>', unsafe_allow_html=True)
+st.markdown(
+    """
+    <div style="margin-top:8px;">
+        <span class="pf-badge">Python</span>
+        <span class="pf-badge">Pandas</span>
+        <span class="pf-badge">NumPy</span>
+        <span class="pf-badge">Scikit-learn</span>
+        <span class="pf-badge">Random Forest</span>
+        <span class="pf-badge">Plotly</span>
+        <span class="pf-badge">Streamlit</span>
+        <span class="pf-badge">Joblib</span>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
-st.markdown("""
-- Python
-- Pandas
-- NumPy
-- Scikit-learn
-- Matplotlib
-- Streamlit
-- Joblib
-""")
-
+st.write("")
 st.divider()
 
-# --------------------------------------------------
-# Footer
-# --------------------------------------------------
-
-st.markdown("""
-<div class="footer">
-<b>Developed by Dilpreet Kaur</b><br>
-B.Sc. IT Major Project • AI-Based Precision Farming Recommendation Engine
-</div>
-""", unsafe_allow_html=True)
+render_footer()
