@@ -270,6 +270,7 @@ def inject_base_css():
 
         /* Hide default streamlit chrome we don't want */
         #MainMenu {{visibility: hidden;}}
+        div[data-testid="stSidebarNav"] {{display: none;}}
         footer {{visibility: hidden;}}
         </style>
         """
